@@ -10,7 +10,7 @@ Ej Líquido: 10.000 / 0,8625 = $11.594 // Debes hacer la boleta por $11.594, rec
 */
 
 
-// Funcion que captura numero:
+// Función que captura numero:
 function capturarNumero() { // captura numero.
     let input = prompt("Ingrese el monto").replace(/[,.]/g, '');
     // let monto = parseFloat(input);  
@@ -18,7 +18,7 @@ function capturarNumero() { // captura numero.
     return parseFloat(input);
 }
 
-// Funcione que corrobora numero:
+// Función que corrobora numero:
 function corroboraNumero(monto){
     if (isNaN(monto) || monto < 0) {
         console.log ("El número ingresado no es válido.");
@@ -38,7 +38,7 @@ function calculaBoleta (montoAcalcular){
     return {resultadoBruto, resultadoLiquido};
 }
 
-// Función flecha que agrega cálculo al array cálculos realizados:
+// Función flecha que agrega cálculo al array de cálculos realizados:
 const agregarCalculo = (monto,resultadoBruto,resultadoLiquido) => {
     const Monto = monto;
     const TotalBruto = resultadoBruto;
