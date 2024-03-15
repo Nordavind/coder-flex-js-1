@@ -11,25 +11,26 @@ Ej Liquido: 10.000 / 0,8625 = $11.594 // Debes hacer la boleta por $11.564
 */
 
 
-// Funciones (CapturarNumero - CorroboraNumero - CalculaBoleta):
-
+// Funcione que captura numero:
 function capturarNumero() { // captura numero.
     let input = prompt("Ingrese el monto").replace(/[,.]/g, '');
     let monto = parseFloat(input);  
     return monto;
 }
 
-function corroboraNumero(monto){ // confirma si es un imnput correcto.
+// Funcione que corrobora numero:
+function corroboraNumero(monto){
     if (isNaN(monto)) {
         console.log ("El número ingresado no es válido.");
         alert ("El número ingresado no es válido. Intentelo nuevamente.");
-        return false;
+        return true;
     } else {
         console.log ("El número ingresado es válido.");
-        return true;
+        return false;
     }
 }
 
+// Funcione que calcula numero (bruto y liquido):
 function calculaBoleta (montoAcalcular){ // funcion que calcula bruto y liquido.
     let porcentaje = (montoAcalcular * 13.75) / 100;
     let resultadoBruto = montoAcalcular - porcentaje;
@@ -37,19 +38,41 @@ function calculaBoleta (montoAcalcular){ // funcion que calcula bruto y liquido.
     return {resultadoBruto, resultadoLiquido};
 }
 
-// Ejecuccion:
-
-let monto;
-let esNumeroValido = false;
-
-while (esNumeroValido === false) {
-    monto = capturarNumero();
-    esNumeroValido = corroboraNumero(monto);
+// Funcion flecha que agrega calculo al array calculos realizdos:
+const agregarCalculo = (monto,resultadoBruto,resultadoLiquido) => { // funcion que agrega el calculo a un array.
+    const Monto = monto;
+    const TotalBruto = resultadoBruto;
+    const TotalLiquido = resultadoLiquido;
+    
+    const calculo = {Monto: monto, ResultadoBruto: resultadoBruto, ResultadoLiquido: resultadoLiquido};
+    calculosRealizados.push(calculo);
 }
 
-console.log("El número ingresado es:", monto);
+// Ejecuccion del script:
+const calculosRealizados =  [] // Array de calculos realizados.
+let deseaContinuar
 
-let {resultadoBruto, resultadoLiquido} = calculaBoleta(monto);
-resultadoLiquido = Math.floor(resultadoLiquido); // redondea hacia abajo el numero para eliminar decimales.
+do {
+    let monto;
+    let noEsNumeroValido = true;
+    
+    while (noEsNumeroValido) {
+        monto = capturarNumero();
+        noEsNumeroValido = corroboraNumero(monto);
+    }
+    console.log("El número ingresado es:" + monto);
+    
+    let {resultadoBruto, resultadoLiquido} = calculaBoleta(monto);
+    resultadoLiquido = Math.floor(resultadoLiquido); // redondea hacia abajo el numero para eliminar decimales.
+    
+    agregarCalculo(monto,resultadoBruto,resultadoLiquido);
+    console.table (calculosRealizados);
+    
+    alert ("Si lo pactado fue en bruto, debes realizar la boleta por $" + monto + " y recibirás $" + resultadoBruto + " - " + "Si lo pactado fue en liquido, debes realizar la boleta por $" + resultadoLiquido + " y recibirás $" + monto + ".");
 
-alert ("Si lo pactado fue en bruto, debes hacer la boleta por $" + monto + " y recibirás $" + resultadoBruto + " - " + "Si lo pactado fue en liquido, debes hacer la boleta por $" + resultadoLiquido + " y recibirás $" + monto + ".");
+    deseaContinuar = confirm ("¿Deseas realizar otro cálculo?");
+
+} while (deseaContinuar);
+
+
+
