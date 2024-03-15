@@ -64,6 +64,8 @@ do {
     
     let {resultadoBruto, resultadoLiquido} = calculaBoleta(monto);
     resultadoLiquido = Math.floor(resultadoLiquido); // redondea hacia abajo el número para eliminar decimales.
+    console.log("Resultado liquido: " + resultadoLiquido);
+    console.log("Resultado bruto: " + resultadoBruto);
     
     agregarCalculo(monto,resultadoBruto,resultadoLiquido);
     console.table (calculosRealizados);
